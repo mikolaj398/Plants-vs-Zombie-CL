@@ -23,8 +23,7 @@ public class Spawner : MonoBehaviour {
         float spawnDelay = myAttacker.seenEverySeconds;
         float spawnsPerSeconds = 1 / spawnDelay;
         float hold = Time.deltaTime * spawnsPerSeconds/5;
-        if (Random.value < hold) return true;
-        return false;
+        return (Random.value < hold);
     }
     void Spawn (GameObject attacker)
     {

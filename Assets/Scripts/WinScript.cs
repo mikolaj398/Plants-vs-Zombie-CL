@@ -28,18 +28,28 @@ public class WinScript : MonoBehaviour {
 	{
 		slider.value = Time.timeSinceLevelLoad / levelSeconds;
 		bool isTimeUp = (Time.timeSinceLevelLoad >= levelSeconds);
-		//Debug.Log (Time.timeSinceLevelLoad);
-		//Debug.Log("time up "+ isTimeUp);
-		//Debug.Log("level "+ levelEnded);
 		if (isTimeUp && !levelEnded) 
 		{
-			Debug.Log ("fdgdbv");
-			audio.Play ();
-			Invoke ("LoadNextLevel", audio.clip.length);
-			levelEnded = true;
-			winLabel.SetActive (true);
+			HandleWinCondition ();
 		}
 	}
+
+	void HandleWinCondition ()
+	{
+		DestroyAllTagged ();
+		Debug.Log ("fdgdbv");
+		audio.Play ();
+		Invoke ("LoadNextLevel", audio.clip.length);
+		levelEnded = true;
+		winLabel.SetActive (true);
+	}
+	void DestroyAllTagged()
+	{
+		GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag ("des");
+		foreach (GameObject tagged in taggedObjects)
+			Destroy (tagged);
+	}
+
 	void LoadNextLevel()
 	{
 		levelManager.LoadNextLevel ();
